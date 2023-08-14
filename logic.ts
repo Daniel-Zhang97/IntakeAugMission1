@@ -109,7 +109,8 @@ const quoteCalc = (in1, in2) => {
   return JSON.stringify(`monthly_premium: ${yPrem}; yearly_premium: ${mPrem}`)
 }
 
-console.log(quoteCalc(priceCalc(modYea), riskCalc(selfReport, keyWords)))
+// console.log(quoteCalc(priceCalc(modYea), riskCalc(selfReport, keyWords)))
+
 module.exports = {
   priceCalc,
   riskCalc,

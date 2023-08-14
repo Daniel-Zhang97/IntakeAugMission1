@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const selfReport = document.getElementById('selfReport').value
 
     const response = await fetch('/index', {
-      // Correct endpoint: /index
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
