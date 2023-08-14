@@ -69,7 +69,7 @@ const riskCalc = (in1, words) => {
         riskCount++
       }
       if (riskCount == 5) {
-        return 5
+        return JSON.stringify({ risk_rating: riskCount })
       }
     }
   }
