@@ -7,29 +7,36 @@ let overRep = '{ "car_value": 6614, "risk_rating": 5}'
 const priceCalc = (in1) => {
   let sum = 0
   let parsedIn
+
   try {
     parsedIn = JSON.parse(in1)
   } catch (error) {
-    return 'error: "there is an error'
+    return 'error: there is an error'
   }
 
-  let keys = Object.keys(parsedIn)
+  const keys = Object.keys(parsedIn)
   if (
     keys[0] !== 'model' ||
     keys[1] !== 'year' ||
     typeof parsedIn.model !== 'string' ||
     typeof parsedIn.year !== 'number'
   ) {
-    return 'error: "there is an error'
+    return 'error: there is an error'
   }
-  parsedIn.model
+
+  // Remove non-alphabetical characters from the string
+  const filtered = parsedIn.model.replace(/[^A-Za-z]/g, '')
+
+  sum = filtered
     .split('')
-    .map((x) => (sum += x.toUpperCase().charCodeAt(0) - 64))
+    .reduce((acc, x) => acc + x.toUpperCase().charCodeAt(0) - 64, 0)
 
   if (typeof sum !== 'number') {
-    return `error: "there is an error"`
+    return 'error: there is an error'
   }
-  return JSON.stringify({ car_value: sum * 100 + parsedIn.year })
+
+  const carValue = sum * 100 + parsedIn.year
+  return JSON.stringify({ car_value: carValue })
 }
 
 console.log(priceCalc(modYea))
@@ -103,3 +110,8 @@ const quoteCalc = (in1, in2) => {
 }
 
 console.log(quoteCalc(priceCalc(modYea), riskCalc(selfReport, keyWords)))
+module.exports = {
+  priceCalc,
+  riskCalc,
+  quoteCalc,
+}
