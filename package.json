@@ -3,17 +3,27 @@
   "version": "1.0.0",
   "description": "Buying Experience Re-design at Turners Car Insurance The Client Turners Car Auctions is a market leader in the automotive industry in New Zealand, responsible for more than 10% of all used vehicle sales in the country. It has retained its original function as a vehicle auctioneer, operating in 19 branches nationwide, but has become increasingly dependent on a parallel role as a conventional used vehicle dealership. In support of that role, it has established in-house finance and vehicle insurance divisions that allow it to offer buyers a complete “one-stop shop” experience.",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "start": "nodemon api.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "jest": "^29.6.2",
+    "ts-jest": "^29.1.1"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.3",
+    "@types/supertest": "^2.0.12",
+    "expect.js": "^0.3.1",
+    "mocha": "^10.2.0",
+    "nodemon": "^3.0.1",
+    "supertest": "^6.3.3",
+    "typescript": "^5.1.6"
   }
 }

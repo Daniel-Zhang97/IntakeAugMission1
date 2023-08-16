@@ -48,7 +48,7 @@ const riskCalc = (in1, words) => {
   try {
     parsedReport = JSON.parse(in1)
   } catch (error) {
-    return 'error: "there is an error'
+    return 'error: there is an error'
   }
 
   let keys = Object.keys(parsedReport)
@@ -57,7 +57,7 @@ const riskCalc = (in1, words) => {
     keys[0] != 'claim_history' ||
     typeof parsedReport.claim_history != 'string'
   ) {
-    return 'error: "there is an error'
+    return 'error: there is an error'
   }
 
   let splitReport = parsedReport.claim_history.toLowerCase().split(' ')
@@ -106,7 +106,7 @@ const quoteCalc = (in1, in2) => {
   let yPrem = (parsedValue.car_value * parsedRisk.risk_rating) / 100
   let mPrem = yPrem / 12
 
-  return JSON.stringify(`monthly_premium: ${yPrem}; yearly_premium: ${mPrem}`)
+  return JSON.stringify({ monthly_premium: mPrem, yearly_premium: yPrem })
 }
 
 // console.log(quoteCalc(priceCalc(modYea), riskCalc(selfReport, keyWords)))
