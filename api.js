@@ -3,6 +3,11 @@ const app = express()
 const path = require('path')
 const port = 8000
 let keyWords = ['collide', 'crash', 'scratch', 'bump', 'smash']
+let errorMessage = {
+  error: 'there is an error',
+}
+
+let jsonError = JSON.stringify(errorMessage)
 
 // Serve static files (HTML, CSS, JavaScript) from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')))
@@ -20,6 +25,16 @@ app.post('/index', (req, res) => {
   const priceResult = priceCalc(modYea)
   const riskResult = riskCalc(selfReport, keyWords)
   const quote = quoteCalc(priceResult, riskResult)
+
+  if (
+    priceResult == jsonError ||
+    riskResult == jsonError ||
+    quote == jsonError
+  ) {
+    res.json(jsonError)
+    return
+  }
+
   const calculations = {
     price: JSON.parse(priceResult).car_value,
     risk: JSON.parse(riskResult).risk_rating,

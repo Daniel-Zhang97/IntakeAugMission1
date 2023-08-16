@@ -3,6 +3,11 @@ let selfReport =
   '{"claim_history": "My only claim was a crashed into my house\'s garage door that left a scratch on my car. There are no other crashes."}'
 let keyWords = ['collide', 'crash', 'scratch', 'bump', 'smash']
 let overRep = '{ "car_value": 6614, "risk_rating": 5}'
+let errorMessage = {
+  error: 'there is an error',
+}
+
+let jsonError = JSON.stringify(errorMessage)
 
 const priceCalc = (in1) => {
   let sum = 0
@@ -11,7 +16,7 @@ const priceCalc = (in1) => {
   try {
     parsedIn = JSON.parse(in1)
   } catch (error) {
-    return 'error: there is an error'
+    return jsonError
   }
 
   const keys = Object.keys(parsedIn)
@@ -21,7 +26,7 @@ const priceCalc = (in1) => {
     typeof parsedIn.model !== 'string' ||
     typeof parsedIn.year !== 'number'
   ) {
-    return 'error: there is an error'
+    return jsonError
   }
 
   // Remove non-alphabetical characters from the string
@@ -32,7 +37,7 @@ const priceCalc = (in1) => {
     .reduce((acc, x) => acc + x.toUpperCase().charCodeAt(0) - 64, 0)
 
   if (typeof sum !== 'number') {
-    return 'error: there is an error'
+    return jsonError
   }
 
   const carValue = sum * 100 + parsedIn.year
@@ -48,16 +53,17 @@ const riskCalc = (in1, words) => {
   try {
     parsedReport = JSON.parse(in1)
   } catch (error) {
-    return 'error: there is an error'
+    return jsonError
   }
 
   let keys = Object.keys(parsedReport)
 
   if (
     keys[0] != 'claim_history' ||
-    typeof parsedReport.claim_history != 'string'
+    typeof parsedReport.claim_history != 'string' ||
+    parsedReport.claim_history == ''
   ) {
-    return 'error: there is an error'
+    return jsonError
   }
 
   let splitReport = parsedReport.claim_history.toLowerCase().split(' ')
@@ -85,13 +91,13 @@ const quoteCalc = (in1, in2) => {
   try {
     parsedValue = JSON.parse(in1)
   } catch (error) {
-    return 'error: "there is an error'
+    return jsonError
   }
 
   try {
     parsedRisk = JSON.parse(in2)
   } catch (error) {
-    return 'error: "there is an error'
+    return jsonError
   }
 
   if (
@@ -100,7 +106,7 @@ const quoteCalc = (in1, in2) => {
     typeof parsedValue.car_value !== 'number' ||
     typeof parsedRisk.risk_rating !== 'number'
   ) {
-    return 'error: "there is an error'
+    return jsonError
   }
 
   let yPrem = (parsedValue.car_value * parsedRisk.risk_rating) / 100
